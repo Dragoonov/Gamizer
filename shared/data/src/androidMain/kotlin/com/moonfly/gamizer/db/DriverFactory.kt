@@ -7,6 +7,6 @@ import com.moonfly.gamizer.GamizerDB
 
 actual class DriverFactory(private val context: Context) {
   actual fun createDriver(): SqlDriver {
-    return AndroidSqliteDriver(GamizerDB.Schema, context, "GamizerDB.db")
+    return AndroidSqliteDriver(GamizerDB.Schema, context, NAME)
   }
 }

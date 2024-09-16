@@ -28,6 +28,9 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.sqldelight.android)
         }
+        iosMain.dependencies {
+            implementation(libs.sqldelight.ios)
+        }
         commonMain.dependencies {
             //put your multiplatform dependencies here
         }

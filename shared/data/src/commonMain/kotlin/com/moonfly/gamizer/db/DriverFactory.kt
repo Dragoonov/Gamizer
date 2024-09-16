@@ -11,3 +11,5 @@ fun createDatabase(driverFactory: DriverFactory): GamizerDB {
     val driver = driverFactory.createDriver()
     return GamizerDB(driver)
 }
+
+const val NAME = "GamizerDB.db"
