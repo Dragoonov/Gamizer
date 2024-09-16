@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -25,7 +27,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation(compose.components.resources)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
