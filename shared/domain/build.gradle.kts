@@ -18,14 +18,14 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "shared"
+            baseName = "domain"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-
+            //put your multiplatform dependencies here
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

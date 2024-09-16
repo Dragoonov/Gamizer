@@ -17,3 +17,6 @@ dependencyResolutionManagement {
 rootProject.name = "Gamizer"
 include(":androidGamizer")
 include(":shared")
+include(":shared:domain")
+include(":shared:data")
+include(":shared:presentation")
