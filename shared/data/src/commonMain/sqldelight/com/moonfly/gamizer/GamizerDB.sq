@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS LikedEntity (
+    id INTEGER PRIMARY KEY
+);
+
+selectAll:
+SELECT *
+FROM LikedEntity;
+
+select:
+SELECT *
+FROM LikedEntity
+WHERE id = :id;
+
+add:
+INSERT INTO LikedEntity (id)
+VALUES (:id);
+
+
+delete:
+DELETE FROM LikedEntity
+WHERE id = :id;
+
+clear:
+DELETE FROM LikedEntity;
