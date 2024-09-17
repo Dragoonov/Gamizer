@@ -42,6 +42,9 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
-    implementation(project(":shared:domain"))
+    implementation(libs.koin.core)
     debugImplementation(libs.compose.ui.tooling)
+    implementation(project(":shared:presentation"))
+    implementation(project(":shared:data"))
+    implementation(project(":shared:domain"))
 }
