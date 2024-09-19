@@ -6,17 +6,21 @@ class UserPreferencesDataSourceImpl(
     private val gamizerDb: GamizerDB
 ): UserPreferencesDataSource {
 
-    override suspend fun isGameLiked(id: Int): Boolean {
-        return gamizerDb.gamizerDBQueries.select(id.toLong()).executeAsOneOrNull() != null
+    override suspend fun isGameLiked(id: Int): Response<Boolean> {
+        return try {
+            Response.Success(gamizerDb.gamizerDBQueries.select(id.toLong()).executeAsOneOrNull() != null)
+        } catch (e: IllegalStateException) {
+            Response.Error.SerializationError
+        }
     }
 
-    override suspend fun changeGameLike(id: Int, liked: Boolean): Boolean {
+    override suspend fun changeGameLike(id: Int, liked: Boolean): Response<Unit> {
         if (liked) {
             gamizerDb.gamizerDBQueries.add(id.toLong())
         } else {
             gamizerDb.gamizerDBQueries.delete(id.toLong())
         }
-        return true
+        return Response.Success(Unit)
     }
 
 }

@@ -7,24 +7,23 @@ import com.moonfly.gamizer.dto.toGame
 import com.moonfly.gamizer.dto.toGames
 import com.moonfly.gamizer.model.Game
 import io.ktor.client.*
-import io.ktor.client.call.*
 import io.ktor.client.request.*
 
 
 class GamesDataSourceImpl(private val httpClient: HttpClient): GamesDataSource {
 
-    override suspend fun getGames(page: Int): List<Game> {
-        return httpClient.get("$API_URL/games") {
+    override suspend fun getGames(page: Int): Response<List<Game>> {
+        return httpClient.safeGet<GamesDTO>("$API_URL/games") {
                 parameter(KEY_KEY, apiKey())
                 parameter(PAGE_KEY, page)
                 parameter(PAGE_SIZE_KEY, PAGE_SIZE)
-            }.body<GamesDTO>().toGames()
+            }.map { it.toGames() }
     }
 
-    override suspend fun getGameDetails(id: Int): Game {
-        return httpClient.get("$API_URL/games/$id") {
+    override suspend fun getGameDetails(id: Int): Response<Game> {
+        return httpClient.safeGet<GameDTO>("$API_URL/games/$id") {
                 parameter(KEY_KEY, apiKey())
-            }.body<GameDTO>().toGame()
+            }.map { it.toGame() }
     }
 
     private companion object {

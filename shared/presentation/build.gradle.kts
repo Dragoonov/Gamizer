@@ -29,6 +29,18 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.components.resources)
             implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(libs.compose.viewmodel)
+            implementation(libs.coil.compose.core)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.mp)
+            implementation(libs.coil.network.ktor)
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.compose.viewmodel.navigation)
+            implementation(project(":shared:domain"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
