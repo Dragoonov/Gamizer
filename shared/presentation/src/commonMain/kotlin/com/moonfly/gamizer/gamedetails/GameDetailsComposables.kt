@@ -4,11 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
@@ -20,15 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.moonfly.gamizer.base.ErrorMessage
 import com.moonfly.gamizer.base.LoadingBar
+import com.moonfly.gamizer.base.extraLargeFont
+import com.moonfly.gamizer.base.extraLargeSpace
+import com.moonfly.gamizer.base.largeFont
+import com.moonfly.gamizer.base.largeSpace
+import com.moonfly.gamizer.base.mediumSpace
 import gamizer.shared.presentation.generated.resources.Res
 import gamizer.shared.presentation.generated.resources.developers
 import gamizer.shared.presentation.generated.resources.genres
-import gamizer.shared.presentation.generated.resources.info
+import gamizer.shared.presentation.generated.resources.no_data
 import gamizer.shared.presentation.generated.resources.platforms
 import gamizer.shared.presentation.generated.resources.website
 import org.jetbrains.compose.resources.stringResource
@@ -40,39 +41,40 @@ fun GameDetailsMainView(viewModel: GameDetailsViewModel = koinViewModel()) {
     Box {
         when {
             !uiState.isError && !uiState.isLoading ->
-                LazyColumn {
-                    item {
-                        AsyncImage(
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
-                            model = uiState.imageUrl,
-                            contentDescription = "Game"
-                        )
-                        Image(
-                            imageVector = if (uiState.isLiked) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
-                            contentDescription = null,
-                            modifier = Modifier.clickable {
-                                viewModel.handleEvent(
-                                    GameDetailsEvent.OnGameLikeChanged(
-                                        uiState.id,
-                                        uiState.isLiked.not()
-                                    )
+                Column {
+                    AsyncImage(
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.fillMaxWidth().padding(bottom = largeSpace),
+                        model = uiState.imageUrl,
+                        contentDescription = "Game"
+                    )
+                    Title(uiState.title)
+                    Text(
+                        uiState.description,
+                        modifier = Modifier.padding(mediumSpace),
+                        maxLines = descriptionMaxLines,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    SecondaryData(uiState)
+                    Image(
+                        imageVector = if (uiState.isLiked) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            viewModel.handleEvent(
+                                GameDetailsEvent.OnGameLikeChanged(
+                                    uiState.id,
+                                    uiState.isLiked.not()
                                 )
-                            }
-                        )
-                        Title(uiState.title)
-                        Text(
-                            uiState.description,
-                            modifier = Modifier.padding(8.dp),
-                            maxLines = 10,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        SecondaryData(uiState)
-                    }
+                            )
+                        }.padding(start = mediumSpace)
+                    )
+
                 }
+
             uiState.isError -> ErrorMessage {
                 viewModel.handleEvent(GameDetailsEvent.OnRefresh)
             }
+
             else -> LoadingBar()
         }
 
@@ -83,18 +85,18 @@ fun GameDetailsMainView(viewModel: GameDetailsViewModel = koinViewModel()) {
 fun Title(text: String) {
     Text(
         text,
-        fontSize = 32.sp,
+        fontSize = extraLargeFont,
         fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(bottom = 16.dp, start = 16.dp)
+        modifier = Modifier.padding(start = largeSpace)
     )
 }
 
 @Composable
 fun SecondaryData(game: GameDetailsState) {
-    Section(name = stringResource(Res.string.info)) {
+    Section {
         Data(
             title = stringResource(Res.string.developers),
-            value = game.developers.map { it.name }.toString(),
+            value = game.developers.joinToString(", ") { it.name },
         )
         Data(
             title = stringResource(Res.string.website),
@@ -102,35 +104,39 @@ fun SecondaryData(game: GameDetailsState) {
         )
         Data(
             title = stringResource(Res.string.platforms),
-            value = game.platforms.map { it.name }.toString()
+            value = game.platforms.joinToString(", ") { it.name }
         )
         Data(
             title = stringResource(Res.string.genres),
-            value = game.genres.map { it.name }.toString()
+            value = game.genres.joinToString(", ") { it.name }
         )
     }
 }
 
 @Composable
-fun Section(name: String, block: @Composable () -> Unit) {
-    Text(
-        text = name,
-        fontSize = 32.sp,
-        modifier = Modifier.padding(bottom = 24.dp, start = 8.dp)
-    )
+fun Section(name: String = "", block: @Composable () -> Unit) {
+    if(name.isNotEmpty()) {
+        Text(
+            text = name,
+            fontSize = extraLargeFont,
+            modifier = Modifier.padding(bottom = extraLargeSpace, start = mediumSpace)
+        )
+    }
     block()
 }
 
 @Composable
 fun Data(title: String, value: String) {
-    Row(
-        Modifier
-            .height(64.dp)
-            .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp),
+    Column(
+        Modifier.padding(start = mediumSpace, end = mediumSpace),
         Arrangement.SpaceBetween
     ) {
-        Text(text = title)
-        Text(text = value)
+        Text(text = title, fontSize = largeFont, fontWeight = FontWeight.Bold)
+        Text(
+            text = value.ifEmpty { stringResource(Res.string.no_data) },
+            modifier = Modifier.padding(bottom = mediumSpace)
+        )
     }
 }
+
+private const val descriptionMaxLines = 10

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="refresh">Refresh</string>
-    <string name="info">Info</string>
     <string name="developers">Developers</string>
     <string name="platforms">Platforms</string>
     <string name="genres">Genres</string>
     <string name="website">Website</string>
     <string name="generic_error_message">Something went wrong</string>
+    <string name="no_data">No data</string>
 </resources>

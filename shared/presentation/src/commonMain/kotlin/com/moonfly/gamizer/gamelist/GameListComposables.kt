@@ -20,11 +20,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.moonfly.gamizer.base.ErrorMessage
 import com.moonfly.gamizer.base.LoadingBar
+import com.moonfly.gamizer.base.largeSpace
+import com.moonfly.gamizer.base.mediumFont
+import com.moonfly.gamizer.base.mediumSpace
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -68,17 +70,19 @@ fun ListItem(id: Int, title: String, imageUrl: String, onGameClickListener: (id:
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp)
+            .padding(largeSpace)
             .clickable {
                 onGameClickListener(id)
             }
     ) {
         AsyncImage(
             contentScale = ContentScale.Crop,
-            modifier = Modifier.size(100.dp).clip(RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp)),
+            modifier = Modifier.size(imageSize).clip(RoundedCornerShape(largeSpace, largeSpace, largeSpace, largeSpace)),
             model = imageUrl,
             contentDescription = "Game",
         )
-        Text(text = title, modifier = Modifier.padding(start = 10.dp), fontSize = 16.sp, fontWeight = FontWeight.Bold)
+        Text(text = title, modifier = Modifier.padding(start = mediumSpace), fontSize = mediumFont, fontWeight = FontWeight.Bold)
     }
 }
+
+private val imageSize = 100.dp
