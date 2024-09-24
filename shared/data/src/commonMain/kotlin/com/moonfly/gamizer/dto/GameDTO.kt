@@ -7,12 +7,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GameDTO(
     val id: Int,
-    val name: String,
-    @SerialName("background_image") val backgroundImage: String,
-    @SerialName("released") val reselaseDate: String,
-    @SerialName("metacritic") val metacriticScore: Double,
-    val platforms: List<PlatformHolderDTO>,
-    val genres: List<GenreDTO>
+    val name: String = "",
+    @SerialName("background_image") val backgroundImage: String = "",
+    @SerialName("released") val reselaseDate: String = "",
+    @SerialName("metacritic") val metacriticScore: Double = 0.0,
+    val platforms: List<PlatformHolderDTO> = emptyList(),
+    val genres: List<GenreDTO> = emptyList()
 )
 
 fun GameDTO.toGame(): Game = Game(

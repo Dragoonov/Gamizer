@@ -42,8 +42,10 @@ kotlin {
             implementation(libs.koin.compose.viewmodel.navigation)
             implementation(project(":shared:domain"))
         }
-        commonTest.dependencies {
+        androidUnitTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlin.coroutines.test)
+            implementation(libs.mockk)
         }
     }
 }

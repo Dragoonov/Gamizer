@@ -29,8 +29,10 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.test)
         }
-        commonTest.dependencies {
+        androidUnitTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlin.coroutines.test)
+            implementation(libs.mockk)
         }
     }
 }
