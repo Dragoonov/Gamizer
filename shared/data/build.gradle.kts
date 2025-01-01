@@ -49,6 +49,8 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.datastore)
+            implementation(libs.datastore.preferences)
             implementation(project(":shared:domain"))
         }
         androidUnitTest.dependencies {

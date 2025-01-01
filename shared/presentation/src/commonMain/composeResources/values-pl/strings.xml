@@ -7,4 +7,8 @@
     <string name="website">Strona</string>
     <string name="generic_error_message">Coś poszło nie tak</string>
     <string name="no_data">Brak danych</string>
+    <string name="home_bottom_navbar">Ekran główny</string>
+    <string name="preferences_bottom_navbar">Preferencje</string>
+    <string name="preferences_title">Preferencje</string>
+    <string name="dark_mode">Tryb ciemny</string>
 </resources>

@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -58,6 +60,7 @@ fun GameDetailsMainView(viewModel: GameDetailsViewModel = koinViewModel()) {
                     SecondaryData(uiState)
                     Image(
                         imageVector = if (uiState.isLiked) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
                         contentDescription = null,
                         modifier = Modifier.clickable {
                             viewModel.handleEvent(

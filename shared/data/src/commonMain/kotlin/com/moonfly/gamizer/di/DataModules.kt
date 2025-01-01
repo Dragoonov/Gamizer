@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val dataModule = module {
     single<GamesDataSource> { GamesDataSourceImpl(get()) }
-    single<UserPreferencesDataSource> { UserPreferencesDataSourceImpl(get()) }
+    single<UserPreferencesDataSource> { UserPreferencesDataSourceImpl(get(), get()) }
     single {
         HttpClient {
             install(ContentNegotiation) {

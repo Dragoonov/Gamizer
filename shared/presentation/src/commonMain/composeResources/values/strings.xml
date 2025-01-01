@@ -7,4 +7,8 @@
     <string name="website">Website</string>
     <string name="generic_error_message">Something went wrong</string>
     <string name="no_data">No data</string>
+    <string name="home_bottom_navbar">Home</string>
+    <string name="preferences_bottom_navbar">Preferences</string>
+    <string name="preferences_title">Preferences</string>
+    <string name="dark_mode">Dark mode</string>
 </resources>
